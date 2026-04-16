@@ -3,32 +3,20 @@ import './Contact.scss';
 export default function Contact() {
   return (
     <section className="contact">
-      <div className="container">
-        <div className="contact__inner">
-          <p className="contact__eyebrow">CONTACT TO</p>
-          <h2 className="contact__title">
-            Let's work<br />
-            <span className="contact__title--blue">together.</span>
-          </h2>
-          <p className="contact__desc">
-            새로운 프로젝트나 협업에 대한 이야기를 나눠요.<br />
-            언제든지 연락 주세요.
-          </p>
-          <div className="contact__links">
-            <a href="mailto:example@email.com" className="contact__link contact__link--primary">
-              Email me →
-            </a>
-            <a href="https://github.com" target="_blank" rel="noreferrer" className="contact__link">
-              GitHub
-            </a>
-            <a href="#" className="contact__link">
-              Resume
-            </a>
-          </div>
+      <div className="contact__inner">
+        <p className="contact__eyebrow">CONTACT TO</p>
+        <div className="contact__name-wrap">
+          <h2 className="contact__name">KIM SE BIN</h2>
+        </div>
+        <div className="contact__info">
+          <span className="contact__info-label">PHONE</span>
+          <span className="contact__info-value">010.9098.9474</span>
+          <span className="contact__info-label">EMAIL</span>
+          <span className="contact__info-value">zczc203@naver.com</span>
         </div>
       </div>
       <div className="contact__footer">
-        <span>© 2025 Portfolio. All rights reserved.</span>
+        <span>© 2026.kimsebin_portfolio</span>
       </div>
     </section>
   );
