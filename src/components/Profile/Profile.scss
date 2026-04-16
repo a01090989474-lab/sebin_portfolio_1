@@ -1,0 +1,143 @@
+@use "../../styles/variables" as *;
+
+.profile {
+  background-color: $dark;
+  padding-bottom: $section-margin;
+  padding-left: 150px;
+  padding-right: 150px;
+
+  &__title {
+    font-size: 200px;
+    font-weight: 700;
+    color: $blue;
+    line-height: 1;
+    margin-bottom: 50px;
+    text-align: center;
+  }
+
+  &__intro {
+    max-width: 720px;
+    margin-bottom: 200px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  &__quote {
+    font-size: 36px;
+    font-weight: 600;
+    color: $light;
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+
+  &__sub {
+    font-size: 21px;
+    line-height: 1.7;
+    color: rgba($light, 0.7);
+  }
+
+  &__card {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 90px;
+  }
+
+  &__photo {
+    img {
+      width: 100%;
+      aspect-ratio: 432 / 630;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  &__contact-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 55px 0;
+    border-bottom: 1px solid rgba($light, 0.1);
+    padding-bottom: 40px;
+  }
+
+  &__contact-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-right: 95px;
+
+    &:first-child {
+      flex-basis: 100%;
+    }
+
+    label {
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: -0.025em;
+      color: $blue;
+    }
+
+    span {
+      font-size: 21px;
+      color: $light;
+    }
+  }
+
+  &__section {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__section-title {
+    font-size: 16px;
+    letter-spacing: -0.025em;
+    color: $blue;
+    font-weight: 500;
+  }
+
+  &__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    li {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      align-items: start;
+    }
+  }
+
+  &__date {
+    font-size: 21px;
+    color: rgba($light, 0.5);
+    white-space: nowrap;
+  }
+
+  &__detail {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 90px;
+
+    span {
+      font-size: 21px;
+      color: $light;
+      margin-left: 90px;
+    }
+  }
+
+  &__org {
+    font-size: 21px !important;
+    color: rgba($light, 0.5) !important;
+    margin-left: auto;
+  }
+}

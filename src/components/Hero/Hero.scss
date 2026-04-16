@@ -1,0 +1,117 @@
+@use "../../styles/variables" as *;
+
+.hero {
+  background-color: $dark;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin: 150px 0;
+
+  &__inner {
+    width: 100%;
+    text-align: center;
+  }
+
+  &__sub {
+    font-size: 16px;
+    text-transform: uppercase;
+    color: $blue;
+    margin-bottom: 20px;
+  }
+
+  &__title {
+    font-size: 70px;
+    font-weight: 600;
+    line-height: 1;
+    color: $light;
+    margin-bottom: 32px;
+    letter-spacing: -0.025em;
+
+    &--point {
+      color: $blue;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+  }
+
+  &__desc {
+    font-size: 21px;
+    color: $light;
+    letter-spacing: -0.025em;
+    margin-bottom: 60px;
+  }
+
+  &__images {
+    display: flex;
+    gap: 80px;
+    justify-content: center;
+    align-items: flex-end;
+  }
+
+  &__img {
+    width: 520px;
+    height: 300px;
+    flex-shrink: 0;
+    overflow: hidden;
+    position: relative;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-color: rgba($dark, 0.5);
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    &:hover::after {
+      opacity: 0;
+    }
+
+    // 아치형 배치 — 가운데가 가장 높고 양끝으로 내려가며 기울어짐
+    &:nth-child(1) {
+      transform: translateY(150px) rotate(-33deg);
+    }
+    &:nth-child(2) {
+      transform: translateY(105px) rotate(-20deg);
+    }
+    &:nth-child(3) {
+      transform: translateY(0px) rotate(0deg);
+    }
+    &:nth-child(4) {
+      transform: translateY(105px) rotate(20deg);
+    }
+    &:nth-child(5) {
+      transform: translateY(150px) rotate(33deg);
+    }
+  }
+
+  &__scroll {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-top: 150px;
+
+    span {
+      font-size: 11px;
+      letter-spacing: 0.025em;
+      text-transform: uppercase;
+      color: rgba($light, 0.4);
+    }
+  }
+
+  &__scroll-line {
+    width: 1px;
+    height: 48px;
+    background: linear-gradient(to bottom, rgba($light, 0.4), transparent);
+  }
+}

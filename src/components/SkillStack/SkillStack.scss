@@ -1,0 +1,84 @@
+@use "../../styles/variables" as *;
+
+.skill-stack {
+  background-color: $dark;
+  margin-top: $section-margin;
+  margin-bottom: 200px;
+  overflow: hidden;
+
+  &__label {
+    text-align: center;
+    margin-bottom: 150px;
+
+    span {
+      font-size: 200px;
+      font-weight: 700;
+      color: $blue;
+      line-height: 1;
+      display: block;
+    }
+  }
+
+  &__track-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 70px;
+  }
+
+  &__row {
+    transform: rotate(var(--angle, 0deg));
+
+    &:hover .skill-stack__icon--default {
+      display: none;
+    }
+
+    &:hover .skill-stack__icon--active {
+      display: block;
+    }
+  }
+
+  &__track {
+    display: flex;
+    gap: 0;
+    animation: marquee 30s linear infinite;
+    width: max-content;
+
+    &--reverse {
+      animation: marqueeReverse 35s linear infinite;
+    }
+  }
+
+  &__item {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 40px;
+  }
+
+  &__icon {
+    height: 55px;
+    width: auto;
+    display: block;
+
+    &--active {
+      display: none;
+    }
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marqueeReverse {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}

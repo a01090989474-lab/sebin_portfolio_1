@@ -1,0 +1,54 @@
+@use 'variables' as *;
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: $dark;
+  color: $text;
+  font-family: $font;
+  line-height: 1.6;
+  letter-spacing: -0.025em;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+#root,
+main {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.section-margin {
+  margin-top: $section-margin;
+  margin-bottom: $section-margin;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+}

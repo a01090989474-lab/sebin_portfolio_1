@@ -1,0 +1,77 @@
+@use "../../styles/variables" as *;
+
+.gnb {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 24px 0;
+  transition:
+    padding 0.3s ease,
+    background 0.3s ease;
+
+  &--scrolled {
+    padding: 16px 0;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+
+    &.gnb--dark {
+      background-color: rgba($dark, 0.85);
+    }
+
+    &.gnb--light {
+      background-color: rgba($light, 0.85);
+    }
+  }
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  &__logo {
+    font-size: 18px;
+    letter-spacing: -0.025em;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+
+    .gnb--dark & {
+      color: $light;
+    }
+
+    .gnb--light & {
+      color: $dark;
+    }
+  }
+
+  &__nav {
+    display: flex;
+    gap: 32px;
+  }
+
+  &__link {
+    font-size: 16px;
+    letter-spacing: -0.025em;
+    transition: $transition;
+
+    .gnb--dark & {
+      color: rgba($light, 0.5);
+
+      &:hover {
+        color: $light;
+      }
+    }
+
+    .gnb--light & {
+      color: rgba($dark, 0.5);
+
+      &:hover {
+        color: $dark;
+      }
+    }
+  }
+}
