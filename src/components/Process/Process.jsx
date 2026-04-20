@@ -1,41 +1,105 @@
-import './Process.scss';
+import { useEffect, useRef } from "react";
+import "./Process.scss";
 
 const steps = [
   {
-    num: '01',
-    title: 'Research',
-    desc: '사용자 조사 및 시장 분석을 통해 문제를 정의하고, 사용자의 니즈와 페인 포인트를 파악합니다.',
+    num: "01",
+    title: "Research & Discovery",
+    desc: "포트폴리오를 만들기 전, 제 자신을 먼저 들여다봤습니다.\n내가 어떤 것에 끌리는지, 어떤 방식으로 생각하고 만드는지를 정리하며\n나를 처음 보는 사람에게 어떤 인상을 남기고 싶은지를 먼저 정의했습니다.",
+    type: "portrait",
+    img: "/images/process_1.png",
+    imgW: "100%", // 이미지 가로 (px 또는 %)
+    imgH: "100%", // 이미지 세로
   },
   {
-    num: '02',
-    title: 'Define',
-    desc: '수집된 데이터를 분석하여 핵심 문제를 명확히 정의하고 해결 방향을 설정합니다.',
+    num: "02",
+    title: "Reference & Inspiration",
+    desc: "수많은 포트폴리오 사이트를 찾아보며 눈에 담았습니다.\n레이아웃이 정보를 어떻게 전달하는지, 인터랙션이 어떤 경험을 만들어내는지를\n분석하며 단순한 참고를 넘어 방향을 잡는 과정으로 삼았습니다.",
+    type: "landscape",
+    img: "/images/process_2.png",
+    imgW: "100%",
+    imgH: "100%",
   },
   {
-    num: '03',
-    title: 'Design',
-    desc: '와이어프레임부터 고해상도 프로토타입까지, 사용자 경험을 중심으로 디자인합니다.',
+    num: "03",
+    title: "Planning & Design",
+    desc: "폰트와 컬러로 전체적인 무드를 먼저 잡았습니다.\n어떤 흐름으로 이야기를 풀어갈지, 섹션마다 어떤 감정을 전달할지\n고민하며 한 화면 한 화면을 설계했습니다.",
+    type: "portrait",
+    img: "/images/process_3.png",
+    imgW: "100%",
+    imgH: "100%",
   },
   {
-    num: '04',
-    title: 'Develop',
-    desc: '디자인을 실제 코드로 구현하며, 성능과 접근성을 고려한 인터페이스를 개발합니다.',
+    num: "04",
+    title: "Development & Deploy",
+    desc: "디자인을 실제 코드로 옮기며 인터랙션과 애니메이션을 구현했습니다.\nReact와 SCSS로 컴포넌트를 구조화하고, 성능과 접근성을 고려하며\n완성도 높은 포트폴리오를 배포했습니다.",
+    type: "landscape",
+    img: "/images/process_4.png",
+    imgW: "100%",
+    imgH: "100%",
   },
 ];
 
 export default function Process() {
+  const sectionRef = useRef(null);
+  const trackRef = useRef(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    const track = trackRef.current;
+
+    const getMaxTranslate = () => track.scrollWidth - window.innerWidth;
+
+    const setHeight = () => {
+      const max = getMaxTranslate();
+      section.style.height = `calc(100vh + ${Math.max(0, max)}px + 200px)`;
+    };
+
+    const handleScroll = () => {
+      const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+      const scrolled = window.scrollY - sectionTop;
+      const maxScroll = section.offsetHeight - window.innerHeight;
+      const progress = Math.max(0, Math.min(1, scrolled / maxScroll));
+      const max = getMaxTranslate();
+      track.style.transform = `translateX(-${max * progress}px)`;
+    };
+
+    const onResize = () => {
+      setHeight();
+      handleScroll();
+    };
+
+    setHeight();
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", onResize);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", onResize);
+    };
+  }, []);
+
   return (
-    <section className="process">
-      <div className="container">
-        <div className="process__header">
-          <p className="process__eyebrow">PROCESS</p>
-          <h2 className="process__title">How I Work</h2>
-        </div>
-        <div className="process__list">
+    <section className="process" ref={sectionRef}>
+      <div className="process__sticky">
+        <h2 className="process__title">PROCESS</h2>
+        <div className="process__track" ref={trackRef}>
           {steps.map((step, i) => (
-            <div key={i} className="process__item">
+            <div
+              key={i}
+              className={`process__card process__card--${step.type}`}
+            >
               <span className="process__num">{step.num}</span>
-              <div className="process__divider" />
+              <div className="process__img-wrap">
+                <img
+                  src={step.img}
+                  alt={step.title}
+                  className="process__img"
+                  style={{ width: step.imgW, height: step.imgH }}
+                />
+              </div>
               <div className="process__body">
                 <h3 className="process__name">{step.title}</h3>
                 <p className="process__desc">{step.desc}</p>

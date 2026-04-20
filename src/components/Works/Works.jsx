@@ -15,8 +15,8 @@ const works = [
       { src: "/images/git.png", alt: "GitHub" },
       { src: "/images/claude.png", alt: "Claude" },
     ],
-    figmaUrl: "#",
-    siteUrl: "#",
+    figmaUrl: "https://buly.kr/3YFKiCj",
+    siteUrl: "https://giiit.vercel.app/",
     image: "/images/aesop.png",
   },
   {
@@ -36,8 +36,8 @@ const works = [
       { src: "/images/notion.png", alt: "notion" },
       { src: "/images/git.png", alt: "git" },
     ],
-    figmaUrl: "#",
-    siteUrl: "#",
+    figmaUrl: "https://buly.kr/FAfLReS",
+    siteUrl: "https://ascend-ott.vercel.app/",
     image: "/images/ascend.png",
   },
 ];
@@ -102,7 +102,11 @@ export default function Works() {
               </div>
 
               <div className="works__images">
-                <img src={work.image} alt={work.title} className={`works__img${i === 1 ? " works__img--large" : ""}`} />
+                <img
+                  src={work.image}
+                  alt={work.title}
+                  className={`works__img${i === 1 ? " works__img--large" : ""}`}
+                />
               </div>
             </div>
           </div>

@@ -1,0 +1,78 @@
+@use '../../styles/variables' as *;
+
+.banner__wrapper {
+  height: 450vh;
+  margin-bottom: -200px;
+}
+
+.banner {
+  --gap: 1.5vw;
+  --pill-w: calc((100vw - 8 * var(--gap)) / 9);
+  --pill-h: calc(var(--pill-w) * 2.614);
+
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: $dark;
+  overflow: hidden;
+}
+
+.banner__grid {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--gap);
+  perspective: 1200px;
+}
+
+.banner__col-track {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  will-change: transform;
+}
+
+.banner__col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  flex-shrink: 0;
+
+  &--even {
+    transform: translateY(calc(-1 * (var(--pill-h) * 0.5 + var(--gap) * 0.5)));
+  }
+
+  &--odd {
+    transform: translateY(0);
+  }
+}
+
+.banner__pill {
+  width: var(--pill-w);
+  height: var(--pill-h);
+  object-fit: contain;
+  display: block;
+  flex-shrink: 0;
+  opacity: 0.9;
+}
+
+.banner__photo-wrap {
+  position: relative;
+  width: var(--pill-w);
+  height: var(--pill-h);
+  flex-shrink: 0;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.banner__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}

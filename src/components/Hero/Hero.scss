@@ -44,18 +44,30 @@
   }
 
   &__images {
-    display: flex;
-    gap: 80px;
-    justify-content: center;
-    align-items: flex-end;
+    position: relative;
+    height: 600px;
+    overflow: hidden;
   }
 
+  // 원형 회전 컨테이너 — 원의 중심점
+  &__ring {
+    position: absolute;
+    left: 50%;
+    top: 1250px; // 원 중심 (보이는 영역 아래)
+    width: 0;
+    height: 0;
+  }
+
+  // R = 1000px → chord(36°) ≈ 618px → gap ≈ 100px
   &__img {
+    position: absolute;
     width: 520px;
     height: 300px;
-    flex-shrink: 0;
+    left: -260px;    // 이미지 가로 중앙을 원 중심에 맞춤
+    top: -1150px;    // 반지름(1000) + 이미지 절반 높이(150) 위
+    transform-origin: 260px 1150px; // 원 중심까지의 거리
+    transform: rotate(var(--angle));
     overflow: hidden;
-    position: relative;
 
     img {
       width: 100%;
@@ -74,23 +86,6 @@
 
     &:hover::after {
       opacity: 0;
-    }
-
-    // 아치형 배치 — 가운데가 가장 높고 양끝으로 내려가며 기울어짐
-    &:nth-child(1) {
-      transform: translateY(150px) rotate(-33deg);
-    }
-    &:nth-child(2) {
-      transform: translateY(105px) rotate(-20deg);
-    }
-    &:nth-child(3) {
-      transform: translateY(0px) rotate(0deg);
-    }
-    &:nth-child(4) {
-      transform: translateY(105px) rotate(20deg);
-    }
-    &:nth-child(5) {
-      transform: translateY(150px) rotate(33deg);
     }
   }
 
