@@ -3,17 +3,31 @@
 .works {
   background-color: $light;
   padding: 0 150px;
+  margin-top: -100vh; // 배너의 sticky 영역만큼 위로 끌어올려 공백을 메움
+  position: relative; // 순서가 뒤로 밀리지 않게 설정
+  z-index: 10;
+
+  // --- [추가] 애니메이션 공통 설정 ---
+  .fade-in {
+    opacity: 0;
+    transform: translateY(60px); // 아래에서 위로 올라오는 효과
+    transition:
+      opacity 1s ease-out,
+      transform 1s ease-out;
+
+    &.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
   &__title-wrap {
     text-align: center;
-    padding: 120px 0 100px;
-  }
+    padding: 200px 0 100px;
 
-  &__title {
-    font-size: 200px;
-    font-weight: 700;
-    color: $blue;
-    line-height: 1;
+    &.is-visible {
+      transition-delay: 0s; // 타이틀이 가장 먼저 등장
+    }
   }
 
   &__list {
@@ -22,17 +36,35 @@
     gap: 200px;
   }
 
-  &__item:nth-child(2) &__info {
-    padding: 0 12px 0 0;
+  &__item {
+    // [추가] 리스트 아이템 순차적 등장 (0.4s, 0.7s...)
+    @for $i from 1 through 10 {
+      &:nth-child(#{$i}).is-visible {
+        transition-delay: #{0.1 + ($i * 0.4)}s;
+      }
+    }
+
+    &:nth-child(2) .works__info {
+      padding: 0 12px 0 0;
+    }
+
+    &:nth-child(2) .works__row {
+      margin-right: -10px;
+    }
+
+    &:nth-child(2) .works__images {
+      order: -1;
+    }
+  }
+  // --------------------------------
+
+  &__title {
+    font-size: 200px;
+    font-weight: 700;
+    color: $blue;
+    line-height: 1;
   }
 
-  &__item:nth-child(2) &__row {
-    margin-right: -10px;
-  }
-
-  &__item:nth-child(2) &__images {
-    order: -1;
-  }
   &__name {
     font-size: 24px;
     font-weight: 600;

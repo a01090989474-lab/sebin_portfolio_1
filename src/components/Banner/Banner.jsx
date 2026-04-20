@@ -17,47 +17,64 @@ export default function Banner() {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "none" } });
 
-      // phase 1 (0-5): 패럴랙스 — 모든 열 포함
-      tl.fromTo(".banner__col-track--even", { y: 0 }, { y: -200, duration: 5 }, 0);
-      tl.fromTo(".banner__col-track--odd",  { y: 0 }, { y:  200, duration: 5 }, 0);
-
-      // phase 1→4 전환 (5.0-7.0): center 열만 y:-200 → y:0 으로 복귀
-      tl.fromTo(".banner__col-track--center", { y: -200 }, { y: 0, duration: 2.0, ease: "power2.out" }, 5.0);
-
-      // phase 2 (4.0-6.0): 알약 fade out
+      // [Phase 1] 열 이동 속도 향상 (Duration 5 -> 3)
       tl.fromTo(
-        ".banner__pill",
-        { opacity: 0.9 },
-        { opacity: 0, duration: 1.4, stagger: { amount: 0.4 } },
-        4.0
+        ".banner__col-track--even",
+        { y: 0 },
+        { y: -200, duration: 3 },
+        0,
+      );
+      tl.fromTo(
+        ".banner__col-track--odd",
+        { y: 0 },
+        { y: 200, duration: 3 },
+        0,
       );
 
-      // phase 3 (6.0-7.3): 가로 flip
-      tl.fromTo(".banner__photo--front", { rotateY: 0   }, { rotateY:  90, duration: 0.65 }, 6.0);
-      tl.fromTo(".banner__photo--back",  { rotateY: -90 }, { rotateY:   0, duration: 0.65 }, 6.65);
-
-      // phase 4a (6.5-8.5): 배경을 scale 시작 전부터 흰색으로
+      // [Phase 2] 센터 열 복귀 (시간 단축)
       tl.fromTo(
-        ".banner",
-        { backgroundColor: "#191919" },
-        { backgroundColor: "#fdfdfd", duration: 2.0 },
-        6.5
+        ".banner__col-track--center",
+        { y: -200 },
+        { y: 0, duration: 1.2, ease: "power2.out" },
+        3.0,
       );
 
-      // phase 4b (7.0-8.5): 확대
+      // [Phase 3] 알약 Fade Out 및 주변 열 제거 (지저분한 잔상 방지)
+      tl.to(".banner__pill", { opacity: 0, duration: 0.8, stagger: 0.05 }, 2.5);
+      // 확대 시작 전, 센터 열을 제외한 모든 트랙을 투명하게 만들어 검은 배경 노출 방지
+      tl.to(
+        ".banner__col-track:not(.banner__col-track--center)",
+        { opacity: 0, duration: 0.5 },
+        3.5,
+      );
+
+      // [Phase 4] 카드 뒤집기 (Flip)
+      tl.fromTo(
+        ".banner__photo--front",
+        { rotateY: 0 },
+        { rotateY: 90, duration: 0.5 },
+        3.8,
+      );
+      tl.fromTo(
+        ".banner__photo--back",
+        { rotateY: -90 },
+        { rotateY: 0, duration: 0.5 },
+        4.3,
+      );
+
+      // [Phase 5] 배경색 전환 및 확대 (Scale up)
+      // 배경색을 확대가 정점에 도달하기 전에 미리 흰색으로 변경
+      tl.to(".banner", { backgroundColor: "#fdfdfd", duration: 0.8 }, 4.0);
+
       tl.fromTo(
         ".banner__photo-wrap",
         { scale: 1 },
-        { scale: 14, duration: 1.5 },
-        7.0
-      );
-
-      // phase 5 (8.5-10): banner fade out → works 섹션 노출
-      tl.fromTo(
-        ".banner",
-        { opacity: 1 },
-        { opacity: 0, duration: 1.5 },
-        8.5
+        {
+          scale: 30, // 스케일 값을 14에서 30으로 키워 화면을 완전히 덮음
+          duration: 1.2,
+          ease: "power2.in",
+        },
+        4.5,
       );
 
       ScrollTrigger.create({
@@ -78,12 +95,14 @@ export default function Banner() {
         <div className="banner__grid">
           {Array.from({ length: COLS }).map((_, col) => {
             const isCenter = col === CENTER_COL;
-            const parity   = col % 2 === 0 ? "even" : "odd";
+            const parity = col % 2 === 0 ? "even" : "odd";
             const trackCls = [
               "banner__col-track",
               `banner__col-track--${parity}`,
               isCenter ? "banner__col-track--center" : "",
-            ].join(" ").trim();
+            ]
+              .join(" ")
+              .trim();
 
             return (
               <div key={col} className={trackCls}>

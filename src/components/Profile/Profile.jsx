@@ -50,7 +50,7 @@ export default function Profile() {
                 <li>
                   <span className="profile__date">2025.10 - 2026.03</span>
                   <div className="profile__detail">
-                    <span>
+                    <span className="profile__edu-name">
                       UX UI 디자인 웹 프론트엔드개발 부트캠프
                       <br />
                       (생성형AI활용 / 피그마)

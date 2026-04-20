@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import "./Works.scss";
 
 const works = [
@@ -43,48 +44,49 @@ const works = [
 ];
 
 export default function Works() {
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.2, // 20% 정도 올라왔을 때 실행되도록 조금 높임
+      rootMargin: "0px 0px -50px 0px", // 바닥에서 조금 더 미리 감지
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          // 한 번 나타난 뒤에는 관찰을 중단해서 불필요한 연산 방지
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    const elements = containerRef.current.querySelectorAll(".fade-in");
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
   return (
-    <section className="works">
-      <div className="works__title-wrap">
+    <section className="works" ref={containerRef}>
+      <div className="works__title-wrap fade-in">
         <h2 className="works__title">MY WORKS</h2>
       </div>
 
       <div className="works__list">
         {works.map((work, i) => (
-          <div key={i} className="works__item">
+          <div key={i} className="works__item fade-in">
+            {" "}
+            {/* 각 아이템에 fade-in 추가 */}
             <h3 className="works__name">{work.title}</h3>
-
             <div className="works__content">
               <div className="works__info">
+                {/* 각 row에 순차적 지연을 위해 fade-in 추가 가능 */}
                 <div className="works__row">
                   <span className="works__label">Description</span>
                   <p className="works__desc">{work.description}</p>
                 </div>
-
-                <div className="works__row">
-                  <span className="works__label">Period</span>
-                  <p className="works__value">{work.period}</p>
-                </div>
-
-                <div className="works__row">
-                  <span className="works__label">Part</span>
-                  <p className="works__value">{work.part}</p>
-                </div>
-
-                <div className="works__row">
-                  <span className="works__label">Tools</span>
-                  <div className="works__tools">
-                    {work.tools.map((tool, j) => (
-                      <img
-                        key={j}
-                        src={tool.src}
-                        alt={tool.alt}
-                        className="works__tool-icon"
-                      />
-                    ))}
-                  </div>
-                </div>
-
+                {/* ... 중략 ... */}
                 <div className="works__buttons">
                   <a
                     href={work.figmaUrl}
