@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
-import './Gnb.scss';
+import { useState, useEffect } from "react";
+import "./Gnb.scss";
 
 const navItems = [
-  { label: 'Profile', href: '#profile' },
-  { label: 'Works', href: '#works' },
-  { label: 'Process', href: '#process' },
-  { label: 'Contact', href: '#contact' },
+  { label: "PROFILE", href: "#profile" },
+  { label: "WORKS", href: "#works" },
+  { label: "PEOCESS", href: "#process" },
+  { label: "CONTACT", href: "#contact" },
 ];
 
 export default function Gnb() {
@@ -18,20 +18,24 @@ export default function Gnb() {
       setScrolled(y > 40);
 
       // Profile 섹션 이후 라이트 배경
-      const profileEl = document.getElementById('profile');
+      const profileEl = document.getElementById("profile");
       if (profileEl) {
         const threshold = profileEl.offsetTop + profileEl.offsetHeight * 0.5;
         setIsDark(y < threshold);
       }
     };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <header className={`gnb ${scrolled ? 'gnb--scrolled' : ''} ${isDark ? 'gnb--dark' : 'gnb--light'}`}>
+    <header
+      className={`gnb ${scrolled ? "gnb--scrolled" : ""} ${isDark ? "gnb--dark" : "gnb--light"}`}
+    >
       <div className="gnb__inner">
-        <a href="#" className="gnb__logo">Portfolio</a>
+        <a href="#" className="gnb__logo">
+          PORTFOLIO
+        </a>
         <nav className="gnb__nav">
           {navItems.map((item) => (
             <a key={item.label} href={item.href} className="gnb__link">

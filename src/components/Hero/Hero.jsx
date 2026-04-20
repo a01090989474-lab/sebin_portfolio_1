@@ -10,14 +10,27 @@ const IMAGES = [
   "/images/main_5.png",
 ];
 
-const TOTAL = IMAGES.length * 2; // 10 images on the circle
-const ANGLE_STEP = 360 / TOTAL; // 36° between each
+const TOTAL = IMAGES.length * 2;
+const ANGLE_STEP = 360 / TOTAL;
 
 export default function Hero() {
   const ringRef = useRef(null);
   const tweenRef = useRef(null);
+  const subRef = useRef(null);
+  const titleLineRefs = useRef([]);
+  const descRef = useRef(null);
 
   useEffect(() => {
+    const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
+
+    tl.to(subRef.current, { opacity: 1, y: 0, duration: 0.6 })
+      .to(
+        titleLineRefs.current,
+        { opacity: 1, x: 0, duration: 0.5, stagger: 0.12 },
+        "+=0.1"
+      )
+      .to(descRef.current, { opacity: 1, y: 0, duration: 0.6 }, "+=0.1");
+
     tweenRef.current = gsap.to(ringRef.current, {
       rotation: "+=360",
       duration: 50,
@@ -25,7 +38,10 @@ export default function Hero() {
       ease: "none",
     });
 
-    return () => tweenRef.current.kill();
+    return () => {
+      tl.kill();
+      tweenRef.current?.kill();
+    };
   }, []);
 
   const handleMouseEnter = () => tweenRef.current?.pause();
@@ -34,17 +50,36 @@ export default function Hero() {
   return (
     <section className="hero">
       <div className="hero__inner">
-        <p className="hero__sub">Portfolio 2026</p>
+        <p ref={subRef} className="hero__sub">
+          Portfolio 2026
+        </p>
         <h1 className="hero__title">
-          <span className="hero__title--point">Breaking conventions</span>
-          <br />
-          with a free and open perspective,
-          <br />
-          <span className="hero__title--point">I design experiences</span> that
-          <br />
-          keep users coming back for more.
+          <span
+            ref={(el) => { titleLineRefs.current[0] = el; }}
+            className="hero__title-line"
+          >
+            <span className="hero__title--point">Breaking conventions</span>
+          </span>
+          <span
+            ref={(el) => { titleLineRefs.current[1] = el; }}
+            className="hero__title-line"
+          >
+            with a free and open perspective,
+          </span>
+          <span
+            ref={(el) => { titleLineRefs.current[2] = el; }}
+            className="hero__title-line"
+          >
+            <span className="hero__title--point">I design experiences</span> that
+          </span>
+          <span
+            ref={(el) => { titleLineRefs.current[3] = el; }}
+            className="hero__title-line"
+          >
+            keep users coming back for more.
+          </span>
         </h1>
-        <p className="hero__desc">
+        <p ref={descRef} className="hero__desc">
           자유롭고 열린 시각으로 관습을 깨뜨리며, 사용자가 계속 찾게 되는 경험을
           설계합니다.
         </p>
@@ -63,11 +98,11 @@ export default function Hero() {
               </div>
             ))}
           </div>
-        </div>
 
-        <div className="hero__scroll">
-          <span>scroll</span>
-          <div className="hero__scroll-line" />
+          <div className="hero__scroll">
+            <span>scroll</span>
+            <div className="hero__scroll-line" />
+          </div>
         </div>
       </div>
     </section>

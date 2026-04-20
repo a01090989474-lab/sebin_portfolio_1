@@ -19,6 +19,8 @@
     text-transform: uppercase;
     color: $blue;
     margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(10px);
   }
 
   &__title {
@@ -36,36 +38,42 @@
     }
   }
 
+  &__title-line {
+    display: block;
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+
   &__desc {
     font-size: 21px;
     color: $light;
     letter-spacing: -0.025em;
-    margin-bottom: 60px;
+    margin-bottom: 24px;
+    opacity: 0;
+    transform: translateY(10px);
   }
 
   &__images {
     position: relative;
-    height: 600px;
-    overflow: hidden;
+    height: 500px;
   }
 
   // 원형 회전 컨테이너 — 원의 중심점
   &__ring {
     position: absolute;
     left: 50%;
-    top: 1250px; // 원 중심 (보이는 영역 아래)
+    top: 1150px;
     width: 0;
     height: 0;
   }
 
-  // R = 1000px → chord(36°) ≈ 618px → gap ≈ 100px
   &__img {
     position: absolute;
     width: 520px;
     height: 300px;
-    left: -260px;    // 이미지 가로 중앙을 원 중심에 맞춤
-    top: -1150px;    // 반지름(1000) + 이미지 절반 높이(150) 위
-    transform-origin: 260px 1150px; // 원 중심까지의 거리
+    left: -260px;
+    top: -1150px;
+    transform-origin: 260px 1150px;
     transform: rotate(var(--angle));
     overflow: hidden;
 
@@ -73,6 +81,11 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    &:hover img {
+      transform: scale(1.2);
     }
 
     &::after {
@@ -90,11 +103,15 @@
   }
 
   &__scroll {
+    position: absolute;
+    left: 50%;
+    top: 85%;
+    transform: translate(-50%, -10%);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 8px;
-    margin-top: 150px;
+    z-index: 10;
 
     span {
       font-size: 11px;
