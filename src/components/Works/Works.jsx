@@ -47,33 +47,24 @@ export default function Works() {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    const observerOptions = {
-      // 0.2는 요소의 20%가 보일 때 실행됨을 의미합니다.
-      // 타이틀과 아이템이 너무 동시에 뜨면 이 값을 0.3~0.5로 높여보세요.
-      threshold: 0.2,
-      rootMargin: "0px 0px -50px 0px",
-    };
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2, rootMargin: "0px 0px -50px 0px" }
+    );
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          // 한 번 애니메이션이 실행된 요소는 관찰을 해제합니다.
-          observer.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-
-    // .fade-in 클래스를 가진 모든 요소를 찾아 감시 시작
-    const elements = containerRef.current.querySelectorAll(".fade-in");
-    elements.forEach((el) => observer.observe(el));
-
+    containerRef.current.querySelectorAll(".fade-in").forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
 
   return (
     <section className="works" ref={containerRef}>
-      {/* 타이틀 영역 */}
       <div className="works__title-wrap fade-in">
         <h2 className="works__title">MY WORKS</h2>
       </div>
@@ -89,8 +80,6 @@ export default function Works() {
                   <span className="works__label">Description</span>
                   <p className="works__desc">{work.description}</p>
                 </div>
-
-                {/* 추가 정보 (기간, 역할 등) */}
                 <div className="works__row">
                   <span className="works__label">Period</span>
                   <p className="works__value">{work.period}</p>
@@ -99,8 +88,6 @@ export default function Works() {
                   <span className="works__label">Contribution</span>
                   <p className="works__value">{work.part}</p>
                 </div>
-
-                {/* 사용 툴 아이콘 */}
                 <div className="works__row">
                   <span className="works__label">Tools</span>
                   <div className="works__tools">

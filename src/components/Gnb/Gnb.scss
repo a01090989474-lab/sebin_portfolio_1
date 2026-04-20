@@ -31,24 +31,24 @@
     justify-content: space-between;
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0 24px;
   }
 
   &__logo {
     font-size: 16px;
     transition: color 0.3s ease;
 
-    .gnb--dark & {
-      color: $light;
-    }
-
-    .gnb--light & {
-      color: $dark;
-    }
+    .gnb--dark & { color: $light; }
+    .gnb--light & { color: $dark; }
   }
 
   &__nav {
     display: flex;
     gap: 32px;
+
+    @media (max-width: $bp-mobile) {
+      display: none;
+    }
   }
 
   &__link {
@@ -57,18 +57,86 @@
 
     .gnb--dark & {
       color: rgba($light, 0.5);
-
-      &:hover {
-        color: $light;
-      }
+      &:hover { color: $light; }
     }
 
     .gnb--light & {
       color: rgba($dark, 0.5);
-
-      &:hover {
-        color: $dark;
-      }
+      &:hover { color: $dark; }
     }
+  }
+
+  &__burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+
+    span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+
+      .gnb--dark & { background-color: $light; }
+      .gnb--light & { background-color: $dark; }
+    }
+
+    &.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    &.is-open span:nth-child(2) { opacity: 0; }
+    &.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media (max-width: $bp-mobile) {
+      display: flex;
+    }
+  }
+
+  &__mobile-nav {
+    display: none;
+    flex-direction: column;
+    gap: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+
+    &.is-open {
+      max-height: 300px;
+    }
+
+    .gnb--dark & { background-color: rgba($dark, 0.95); }
+    .gnb--light & { background-color: rgba($light, 0.95); }
+
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+
+    @media (max-width: $bp-mobile) {
+      display: flex;
+    }
+  }
+
+  &__mobile-link {
+    padding: 16px 24px;
+    font-size: 16px;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid;
+    transition: opacity 0.2s ease;
+
+    .gnb--dark & {
+      color: $light;
+      border-color: rgba($light, 0.08);
+      &:hover { opacity: 0.6; }
+    }
+
+    .gnb--light & {
+      color: $dark;
+      border-color: rgba($dark, 0.08);
+      &:hover { opacity: 0.6; }
+    }
+
+    &:last-child { border-bottom: none; }
   }
 }

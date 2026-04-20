@@ -1,5 +1,71 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./Strengths.scss";
+
+gsap.registerPlugin(ScrollTrigger);
+
+const photosTop = [
+  {
+    src: "/images/like_1.jpg",
+    rotate: -20,
+    offset: -25,
+    offsetX: -280,
+    width: 300,
+  },
+  {
+    src: "/images/like_2.jpg",
+    rotate: -10,
+    offset: -55,
+    offsetX: -80,
+    width: 200,
+  },
+  {
+    src: "/images/like_3.jpg",
+    rotate: 10,
+    offset: -50,
+    offsetX: 80,
+    width: 350,
+  },
+  {
+    src: "/images/like_4.jpg",
+    rotate: 24,
+    offset: -10,
+    offsetX: 250,
+    width: 200,
+  },
+];
+
+const photosBottom = [
+  {
+    src: "/images/like_5.jpg",
+    rotate: 7,
+    offset: 100,
+    offsetX: -250,
+    width: 200,
+  },
+  {
+    src: "/images/like_6.jpg",
+    rotate: 6,
+    offset: 130,
+    offsetX: -120,
+    width: 350,
+  },
+  {
+    src: "/images/like_7.jpg",
+    rotate: -4,
+    offset: 120,
+    offsetX: 0,
+    width: 300,
+  },
+  {
+    src: "/images/like_8.jpg",
+    rotate: -5,
+    offset: 90,
+    offsetX: 120,
+    width: 220,
+  },
+];
 
 const cards = [
   {
@@ -55,135 +121,130 @@ const cards = [
         매일 조금씩 나아갑니다.
       </>
     ),
-    tags: ["#성장", "#스폰지밥", "#오히려 좋아"],
+    tags: ["#성장", "#스펀지밥", "#오히려 좋아"],
     img: "/images/st_3.jpg",
   },
 ];
 
-const photosTop = [
-  {
-    src: "/images/like_1.jpg",
-    rotate: -22,
-    offset: 30,
-    offsetX: -120,
-    width: 249,
-  },
-  { src: "/images/like_2.jpg", rotate: -7, offset: 10, offsetX: 0, width: 220 },
-  { src: "/images/like_3.jpg", rotate: 12, offset: 0, offsetX: 50, width: 220 },
-  {
-    src: "/images/like_4.jpg",
-    rotate: 6,
-    offset: 40,
-    offsetX: 100,
-    width: 220,
-  },
-];
-
-const photosBottom = [
-  {
-    src: "/images/like_5.jpg",
-    rotate: -5,
-    offset: 40,
-    offsetX: -130,
-    width: 220,
-  },
-  {
-    src: "/images/like_6.jpg",
-    rotate: 9,
-    offset: 70,
-    offsetX: -40,
-    width: 220,
-  },
-  {
-    src: "/images/like_7.jpg",
-    rotate: -4,
-    offset: 60,
-    offsetX: 30,
-    width: 220,
-  },
-  {
-    src: "/images/like_8.jpg",
-    rotate: 5,
-    offset: 40,
-    offsetX: 100,
-    width: 220,
-  },
-];
-
 export default function Strengths() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const cardSectionRef = useRef(null);
+  const sectionRef = useRef(null);
+  const lineFillRef = useRef(null);
   const galleryRef = useRef(null);
 
   useEffect(() => {
-    const photos = galleryRef.current.querySelectorAll('.strengths__photo');
-    const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        photos.forEach((photo, i) => {
-          setTimeout(() => photo.classList.add('is-visible'), i * 120);
-        });
-        observer.disconnect();
-      }
-    }, { threshold: 0.2 });
-    observer.observe(galleryRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const section = cardSectionRef.current;
-      if (!section) return;
-      const rect = section.getBoundingClientRect();
-      const totalScrollable = rect.height - window.innerHeight;
-      const scrolled = -rect.top;
-      const progress = Math.max(0, Math.min(1, scrolled / totalScrollable));
-      const index = Math.min(
-        Math.floor(progress * cards.length),
-        cards.length - 1,
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".strengths__heading",
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".strengths__heading",
+            start: "top 85%",
+          },
+        }
       );
-      setActiveIndex(index);
-    };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+      const isMobile = window.innerWidth <= 768;
+      const cardElements = gsap.utils.toArray(".strengths__card");
+
+      if (!isMobile) {
+        const tl = gsap.timeline();
+
+        cardElements.forEach((card, i) => {
+          if (i !== 0) {
+            tl.fromTo(
+              card,
+              { opacity: 0, y: 30, visibility: "hidden" },
+              { opacity: 1, y: 0, visibility: "visible", duration: 1 },
+              `card${i}`,
+            );
+          } else {
+            gsap.set(card, { opacity: 1, visibility: "visible" });
+          }
+
+          if (i === cardElements.length - 1) {
+            tl.to({}, { duration: 0.5 });
+          }
+        });
+
+        ScrollTrigger.create({
+          trigger: ".strengths__card-section",
+          start: "top top",
+          end: "+=2500",
+          pin: true,
+          scrub: 1,
+          animation: tl,
+          onUpdate: (self) => {
+            if (lineFillRef.current) {
+              lineFillRef.current.style.height = `${self.progress * 100}%`;
+            }
+          },
+        });
+      }
+
+      gsap.fromTo(
+        ".strengths__gallery-text span",
+        { opacity: 0, y: 12 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.35,
+          stagger: 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".strengths__gallery-text",
+            start: "top 88%",
+          },
+        }
+      );
+
+      const photos = gsap.utils.toArray(".strengths__photo");
+      photos.forEach((photo) => {
+        ScrollTrigger.create({
+          trigger: photo,
+          start: "top 90%",
+          onEnter: () => photo.classList.add("is-visible"),
+          once: true,
+        });
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
-
-  const lineProgress = `${((activeIndex + 1) / cards.length) * 100}%`;
 
   return (
-    <section className="strengths">
+    <section className="strengths" ref={sectionRef}>
       <h2 className="strengths__heading">STRENGTHS</h2>
 
-      <div className="strengths__card-section" ref={cardSectionRef}>
+      <div className="strengths__card-section">
         <div className="strengths__card-sticky">
           <div className="strengths__line">
-            <div
-              className="strengths__line-fill"
-              style={{ height: lineProgress }}
-            />
+            <div className="strengths__line-fill" ref={lineFillRef} />
           </div>
-          {cards.map((card, i) => (
-            <div
-              key={i}
-              className={`strengths__card ${i === activeIndex ? "is-active" : ""}`}
-            >
-              <div className="strengths__card-info">
-                <h3 className="strengths__card-title">{card.title}</h3>
-                <p className="strengths__card-subtitle">{card.subtitle}</p>
-                <p className="strengths__card-desc">{card.desc}</p>
-                <div className="strengths__card-tags">
-                  {card.tags.map((tag, j) => (
-                    <span key={j} className="strengths__card-tag">
-                      {tag}
-                    </span>
-                  ))}
+
+          <div className="strengths__card-container">
+            {cards.map((card, i) => (
+              <div key={i} className="strengths__card">
+                <div className="strengths__card-info">
+                  <h3 className="strengths__card-title">{card.title}</h3>
+                  <p className="strengths__card-subtitle">{card.subtitle}</p>
+                  <p className="strengths__card-desc">{card.desc}</p>
+                  <div className="strengths__card-tags">
+                    {card.tags.map((tag, j) => (
+                      <span key={j}>{tag}</span>
+                    ))}
+                  </div>
+                </div>
+                <div className="strengths__card-img">
+                  <img src={card.img} alt="" />
                 </div>
               </div>
-              <div className="strengths__card-img">
-                <img src={card.img} alt={card.title} />
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 
@@ -206,9 +267,8 @@ export default function Strengths() {
           ))}
         </div>
         <p className="strengths__gallery-text">
-          전시회 관람, 여행, 요리 등 취미 활동을 통한
-          <br />
-          다양한 경험으로 성장의 기회를 만들어 나가고있습니다.
+          <span>전시회 관람, 여행, 요리 등 취미 활동을 통한</span>
+          <span>다양한 경험으로 성장의 기회를 만들어 나가고있습니다.</span>
         </p>
         <div className="strengths__photos">
           {photosBottom.map((photo, i) => (

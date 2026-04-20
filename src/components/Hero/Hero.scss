@@ -13,6 +13,8 @@
   &__inner {
     width: 100%;
     text-align: center;
+    position: relative;
+    z-index: 10;
   }
 
   &__sub {
@@ -22,6 +24,8 @@
     margin-bottom: 20px;
     opacity: 0;
     transform: translateY(10px);
+    position: relative;
+    z-index: 30;
   }
 
   &__title {
@@ -31,6 +35,8 @@
     color: $light;
     margin-bottom: 32px;
     letter-spacing: -0.025em;
+    position: relative;
+    z-index: 30;
 
     &--point {
       color: $blue;
@@ -51,14 +57,17 @@
     margin-bottom: 24px;
     opacity: 0;
     transform: translateY(10px);
+    position: relative;
+    z-index: 30;
   }
 
   &__images {
     position: relative;
     height: 550px;
+    margin-top: -130px;
+    z-index: 10;
   }
 
-  // 원형 회전 컨테이너 — 원의 중심점
   &__ring {
     position: absolute;
     left: 50%;
@@ -101,13 +110,13 @@
   &__scroll {
     position: absolute;
     left: 50%;
-    top: 80%;
+    top: 70%;
     transform: translate(-50%, -10%);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 8px;
-    z-index: 10;
+    z-index: 40;
 
     span {
       font-size: 11px;
@@ -121,5 +130,79 @@
     width: 1px;
     height: 48px;
     background: linear-gradient(to bottom, rgba($light, 0.5), transparent);
+  }
+
+  // ── Tablet ──────────────────────────────────────
+  @media (max-width: $bp-tablet) {
+    padding: 140px 40px;
+
+    &__title {
+      font-size: 56px;
+    }
+
+    &__desc {
+      font-size: 17px;
+    }
+
+    &__images {
+      height: 420px;
+      margin-top: -100px;
+    }
+
+    &__ring {
+      top: 780px;
+    }
+
+    &__img {
+      width: 360px;
+      height: 200px;
+      left: -180px;
+      top: -780px;
+      transform-origin: 180px 780px;
+    }
+  }
+
+  // ── Mobile ──────────────────────────────────────
+  @media (max-width: $bp-mobile) {
+    padding: 100px 24px;
+
+    &__title {
+      font-size: 34px;
+      margin-bottom: 20px;
+
+      &--point {
+        white-space: normal;
+      }
+    }
+
+    &__sub {
+      font-size: 13px;
+      margin-bottom: 14px;
+    }
+
+    &__desc {
+      font-size: 14px;
+    }
+
+    &__images {
+      height: 260px;
+      margin-top: -60px;
+    }
+
+    &__ring {
+      top: 480px;
+    }
+
+    &__img {
+      width: 220px;
+      height: 130px;
+      left: -110px;
+      top: -480px;
+      transform-origin: 110px 480px;
+    }
+
+    &__scroll {
+      display: none;
+    }
   }
 }

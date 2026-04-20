@@ -81,3 +81,34 @@
     transform: translateX(0);
   }
 }
+
+@media (max-width: $bp-tablet) {
+  .skill-stack {
+    padding: 120px 0;
+
+    &__label {
+      margin-bottom: 80px;
+      span { font-size: 120px; }
+    }
+
+    &__track-wrap { gap: 50px; }
+    &__icon { height: 44px; }
+  }
+}
+
+@media (max-width: $bp-mobile) {
+  .skill-stack {
+    padding: 80px 0;
+
+    &__label {
+      margin-bottom: 50px;
+      span { font-size: 60px; }
+    }
+
+    &__track-wrap { gap: 32px; }
+
+    &__item { padding: 0 20px; }
+
+    &__icon { height: 32px; }
+  }
+}

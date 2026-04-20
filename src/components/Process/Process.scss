@@ -1,51 +1,49 @@
 @use "../../styles/variables" as *;
 
-$portrait-w: 560px;
-$portrait-h: 640px;
-$landscape-w: 820px;
-$landscape-h: 480px;
+$portrait-w: 500px;
+$portrait-h: 600px;
+$landscape-w: 760px;
+$landscape-h: 440px;
 
 .process {
   position: relative;
   z-index: 10;
   background-color: $light;
-  margin-top: -1px;
-  padding: 200px 0; // 섹션 간 간격 (sticky 바깥)
-
-  &__sticky {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    padding: 60px 0 40px; // sticky 내부 최소 패딩
-    box-sizing: border-box;
-    background-color: $light;
-  }
+  padding: 200px 0 0;
 
   &__title {
     font-size: 200px;
     font-weight: 700;
     color: $blue;
     line-height: 1;
-    margin-bottom: 80px;
-    flex-shrink: 0;
     text-align: center;
+    padding-bottom: 80px;
+  }
+
+  &__sticky-wrapper {
     width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+  &__content-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
   }
 
   &__track-container {
-    flex: 1;
-    display: flex;
-    align-items: flex-start;
     padding-left: 80px;
+    width: 100%;
   }
 
   &__track {
     display: flex;
     align-items: flex-start;
     gap: 40px;
-    flex-shrink: 0;
     will-change: transform;
   }
 
@@ -56,8 +54,8 @@ $landscape-h: 480px;
     background-color: $light;
     border: 1px solid rgba($dark, 0.1);
     border-radius: 20px;
-    padding: 30px;
-    gap: 20px;
+    padding: 24px;
+    gap: 16px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
 
     &--portrait {
@@ -72,7 +70,7 @@ $landscape-h: 480px;
   }
 
   &__num {
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 700;
     color: $blue;
   }
@@ -81,6 +79,7 @@ $landscape-h: 480px;
     flex: 1;
     overflow: hidden;
     background-color: #f5f5f5;
+    border-radius: 10px;
   }
 
   &__img {
@@ -93,19 +92,72 @@ $landscape-h: 480px;
   &__body {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
   }
 
   &__name {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 600;
     color: $dark;
   }
 
   &__desc {
-    font-size: 16px;
+    font-size: 15px;
     color: rgba($dark, 0.6);
     line-height: 1.5;
     word-break: keep-all;
+    white-space: pre-line;
+  }
+
+  // ── Tablet ──────────────────────────────────────
+  @media (max-width: $bp-tablet) {
+    padding: 120px 0 0;
+
+    &__title {
+      font-size: 80px;
+      padding-bottom: 50px;
+    }
+  }
+
+  // ── Mobile ──────────────────────────────────────
+  @media (max-width: $bp-mobile) {
+    padding: 80px 0 80px;
+
+    &__title {
+      font-size: 52px;
+      padding-bottom: 28px;
+    }
+
+    &__sticky-wrapper {
+      height: auto;
+      overflow: visible;
+    }
+
+    &__content-inner {
+      padding: 0 24px;
+    }
+
+    &__track-container {
+      padding-left: 0;
+    }
+
+    &__track {
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    &__card {
+      width: 100% !important;
+      height: auto !important;
+      margin-top: 0 !important;
+
+      &--landscape .process__img-wrap {
+        min-height: 180px;
+      }
+
+      &--portrait .process__img-wrap {
+        min-height: 240px;
+      }
+    }
   }
 }

@@ -1,12 +1,32 @@
+import { useEffect, useRef } from "react";
 import "./Profile.scss";
 
 export default function Profile() {
-  return (
-    <section className="profile">
-      <div className="container">
-        <h2 className="profile__title">PROFILE</h2>
+  const sectionRef = useRef(null);
 
-        <div className="profile__intro">
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -50px 0px" }
+    );
+
+    sectionRef.current.querySelectorAll(".fade-in").forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section className="profile" ref={sectionRef}>
+      <div className="container">
+        <h2 className="profile__title fade-in">PROFILE</h2>
+
+        <div className="profile__intro fade-in">
           <p className="profile__quote">
             "단순히 예쁜 결과물을 넘어 사용자의 경험, 본질을 탐구합니다"
           </p>
@@ -19,7 +39,7 @@ export default function Profile() {
           </p>
         </div>
 
-        <div className="profile__card">
+        <div className="profile__card fade-in">
           <div className="profile__photo">
             <img src="/images/profile.jpg" alt="김세빈 프로필" />
           </div>

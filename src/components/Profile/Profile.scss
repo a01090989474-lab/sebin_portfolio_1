@@ -1,16 +1,34 @@
 @use "../../styles/variables" as *;
 
-.container {
-  width: 100%;
-  max-width: 1920px; // 화면 전체 너비 기준
-  margin: 0 auto;
-  padding: 0 150px; // 양옆 마진을 150px로 유지
-  box-sizing: border-box;
-}
-
 .profile {
   background-color: $dark;
   padding: 200px 0;
+
+  .container {
+    max-width: 1920px;
+    padding: 0 150px;
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(40px);
+    transition:
+      opacity 0.7s ease-out,
+      transform 0.7s ease-out;
+
+    &.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  &__intro.fade-in.is-visible {
+    transition-delay: 0.15s;
+  }
+
+  &__card.fade-in.is-visible {
+    transition-delay: 0.3s;
+  }
 
   &__title {
     font-size: 200px;
@@ -26,7 +44,7 @@
     flex-direction: column;
     align-items: center;
     gap: 20px;
-    margin: 0 auto 200px;
+    margin: 0 auto 150px;
     text-align: center;
   }
 
@@ -53,8 +71,8 @@
 
   &__photo {
     img {
-      width: 453px;
-      height: 663px;
+      width: 423px;
+      height: 633px;
       object-fit: cover;
       border-radius: 21px;
       display: block;
@@ -135,13 +153,13 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between; // 양 끝 정렬
+    justify-content: space-between;
     gap: 20px;
 
     span {
       font-size: 24px;
       color: $light;
-      white-space: nowrap; // 텍스트 줄바꿈 방지
+      white-space: nowrap;
     }
   }
 
@@ -149,7 +167,127 @@
     font-size: 24px !important;
     color: rgba($light, 0.5) !important;
     white-space: nowrap;
-    text-align: right; // 우측 정렬 유지
-    flex-shrink: 0; // 이름이 길어져도 줄어들지 않음
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  // ── Tablet ──────────────────────────────────────
+  @media (max-width: $bp-tablet) {
+    padding: 120px 0;
+
+    .container {
+      padding: 0 60px;
+    }
+
+    &__title {
+      font-size: 120px;
+    }
+
+    &__quote {
+      font-size: 26px;
+    }
+
+    &__sub {
+      font-size: 17px;
+    }
+
+    &__intro {
+      margin-bottom: 80px;
+    }
+
+    &__card {
+      grid-template-columns: 300px 1fr;
+      gap: 50px;
+    }
+
+    &__photo img {
+      width: 300px;
+      height: 450px;
+    }
+
+    &__contact-item {
+      padding-right: 36px;
+      label { font-size: 16px; }
+      span { font-size: 18px; }
+    }
+
+    &__date { font-size: 18px; }
+
+    &__detail span { font-size: 18px; }
+
+    &__org { font-size: 18px !important; }
+
+    &__list li {
+      grid-template-columns: 160px 1fr;
+      gap: 0 30px;
+    }
+  }
+
+  // ── Mobile ──────────────────────────────────────
+  @media (max-width: $bp-mobile) {
+    padding: 80px 0;
+
+    .container {
+      padding: 0 24px;
+    }
+
+    &__title {
+      font-size: 60px;
+      margin-bottom: 32px;
+    }
+
+    &__quote {
+      font-size: 20px;
+    }
+
+    &__sub {
+      font-size: 14px;
+    }
+
+    &__intro {
+      margin-bottom: 56px;
+    }
+
+    &__card {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    &__photo {
+      text-align: center;
+      img {
+        width: 100%;
+        height: auto;
+        max-width: 320px;
+        margin: 0 auto;
+      }
+    }
+
+    &__contact-row {
+      padding-bottom: 24px;
+    }
+
+    &__contact-item {
+      padding-right: 24px;
+      label { font-size: 13px; }
+      span { font-size: 15px; }
+
+      &:first-child { margin-bottom: 16px; }
+    }
+
+    &__date { font-size: 13px; }
+
+    &__detail span { font-size: 14px; }
+
+    &__org { font-size: 13px !important; }
+
+    &__section-title { font-size: 15px; }
+
+    &__list li {
+      grid-template-columns: 1fr;
+      gap: 4px;
+    }
+
+    &__info { gap: 28px; }
   }
 }
