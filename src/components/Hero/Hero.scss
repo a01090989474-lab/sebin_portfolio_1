@@ -7,7 +7,8 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  margin: 150px 0;
+  padding: 200px 0;
+  overflow: hidden;
 
   &__inner {
     width: 100%;
@@ -24,7 +25,7 @@
   }
 
   &__title {
-    font-size: 70px;
+    font-size: 80px;
     font-weight: 600;
     line-height: 1;
     color: $light;
@@ -55,7 +56,7 @@
 
   &__images {
     position: relative;
-    height: 500px;
+    height: 550px;
   }
 
   // 원형 회전 컨테이너 — 원의 중심점
@@ -82,10 +83,6 @@
       height: 100%;
       object-fit: cover;
       transition: transform 0.4s ease;
-    }
-
-    &:hover img {
-      transform: scale(1.2);
     }
 
     &::after {

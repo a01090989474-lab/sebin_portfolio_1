@@ -2,8 +2,7 @@
 
 .skill-stack {
   background-color: $dark;
-  margin-top: $section-margin;
-  margin-bottom: 200px;
+  padding: 200px 0;
   overflow: hidden;
 
   &__label {
@@ -40,11 +39,11 @@
   &__track {
     display: flex;
     gap: 0;
-    animation: marquee 30s linear infinite;
+    animation: marquee 18s linear infinite;
     width: max-content;
 
     &--reverse {
-      animation: marqueeReverse 35s linear infinite;
+      animation: marqueeReverse 20s linear infinite;
     }
   }
 

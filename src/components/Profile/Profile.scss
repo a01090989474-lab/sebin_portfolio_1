@@ -2,9 +2,7 @@
 
 .profile {
   background-color: $dark;
-  padding-bottom: $section-margin;
-  padding-left: 150px;
-  padding-right: 150px;
+  padding: 200px 0;
 
   &__title {
     font-size: 200px;
@@ -16,11 +14,12 @@
   }
 
   &__intro {
-    max-width: 720px;
-    margin-bottom: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin: 0 auto 200px;
     text-align: center;
-    margin-left: auto;
-    margin-right: auto;
   }
 
   &__quote {
@@ -28,25 +27,25 @@
     font-weight: 600;
     color: $light;
     margin-bottom: 20px;
-    line-height: 1.3;
+    line-height: 1.2;
   }
 
   &__sub {
     font-size: 21px;
-    line-height: 1.7;
+    line-height: 1.2;
     color: rgba($light, 0.7);
   }
 
   &__card {
     display: grid;
-    grid-template-columns: 280px 1fr;
+    grid-template-columns: 423px 1fr;
     gap: 90px;
   }
 
   &__photo {
     img {
-      width: 100%;
-      aspect-ratio: 432 / 630;
+      width: 423px;
+      height: 633px;
       object-fit: cover;
       border-radius: 12px;
       display: block;
@@ -62,7 +61,7 @@
   &__contact-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 55px 0;
+    gap: 0;
     border-bottom: 1px solid rgba($light, 0.1);
     padding-bottom: 40px;
   }
@@ -71,21 +70,22 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
-    padding-right: 95px;
+    padding-right: 60px;
+    white-space: nowrap;
 
     &:first-child {
       flex-basis: 100%;
+      margin-bottom: 24px;
     }
 
     label {
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 500;
-      letter-spacing: -0.025em;
       color: $blue;
     }
 
     span {
-      font-size: 21px;
+      font-size: 24px;
       color: $light;
     }
   }
@@ -97,8 +97,7 @@
   }
 
   &__section-title {
-    font-size: 16px;
-    letter-spacing: -0.025em;
+    font-size: 18px;
     color: $blue;
     font-weight: 500;
   }
@@ -111,13 +110,14 @@
 
     li {
       display: grid;
-      grid-template-columns: 160px 1fr;
+      grid-template-columns: 200px 1fr;
+      gap: 0 30px;
       align-items: start;
     }
   }
 
   &__date {
-    font-size: 21px;
+    font-size: 24px;
     color: rgba($light, 0.5);
     white-space: nowrap;
   }
@@ -126,18 +126,18 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 90px;
+    justify-content: space-between;
 
     span {
-      font-size: 21px;
+      font-size: 24px;
       color: $light;
-      margin-left: 90px;
     }
   }
 
   &__org {
-    font-size: 21px !important;
+    font-size: 24px !important;
     color: rgba($light, 0.5) !important;
-    margin-left: auto;
+    white-space: nowrap;
+    text-align: right;
   }
 }

@@ -88,7 +88,7 @@ export default function Profile() {
                 <li>
                   <span className="profile__date">2020.07 - 2022.03</span>
                   <div className="profile__detail">
-                    <span>만 0~1세 담임교사</span>
+                    <span>만 0 - 1세 담임교사</span>
                     <span className="profile__org">시립장현행복어린이집</span>
                   </div>
                 </li>
