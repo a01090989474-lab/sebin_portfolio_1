@@ -48,27 +48,32 @@ export default function Works() {
 
   useEffect(() => {
     const observerOptions = {
-      threshold: 0.2, // 20% 정도 올라왔을 때 실행되도록 조금 높임
-      rootMargin: "0px 0px -50px 0px", // 바닥에서 조금 더 미리 감지
+      // 0.2는 요소의 20%가 보일 때 실행됨을 의미합니다.
+      // 타이틀과 아이템이 너무 동시에 뜨면 이 값을 0.3~0.5로 높여보세요.
+      threshold: 0.2,
+      rootMargin: "0px 0px -50px 0px",
     };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("is-visible");
-          // 한 번 나타난 뒤에는 관찰을 중단해서 불필요한 연산 방지
+          // 한 번 애니메이션이 실행된 요소는 관찰을 해제합니다.
           observer.unobserve(entry.target);
         }
       });
     }, observerOptions);
 
+    // .fade-in 클래스를 가진 모든 요소를 찾아 감시 시작
     const elements = containerRef.current.querySelectorAll(".fade-in");
     elements.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
   }, []);
+
   return (
     <section className="works" ref={containerRef}>
+      {/* 타이틀 영역 */}
       <div className="works__title-wrap fade-in">
         <h2 className="works__title">MY WORKS</h2>
       </div>
@@ -76,26 +81,53 @@ export default function Works() {
       <div className="works__list">
         {works.map((work, i) => (
           <div key={i} className="works__item fade-in">
-            {" "}
-            {/* 각 아이템에 fade-in 추가 */}
             <h3 className="works__name">{work.title}</h3>
+
             <div className="works__content">
               <div className="works__info">
-                {/* 각 row에 순차적 지연을 위해 fade-in 추가 가능 */}
                 <div className="works__row">
                   <span className="works__label">Description</span>
                   <p className="works__desc">{work.description}</p>
                 </div>
-                {/* ... 중략 ... */}
+
+                {/* 추가 정보 (기간, 역할 등) */}
+                <div className="works__row">
+                  <span className="works__label">Period</span>
+                  <p className="works__value">{work.period}</p>
+                </div>
+                <div className="works__row">
+                  <span className="works__label">Contribution</span>
+                  <p className="works__value">{work.part}</p>
+                </div>
+
+                {/* 사용 툴 아이콘 */}
+                <div className="works__row">
+                  <span className="works__label">Tools</span>
+                  <div className="works__tools">
+                    {work.tools.map((tool, index) => (
+                      <img
+                        key={index}
+                        src={tool.src}
+                        alt={tool.alt}
+                        className="works__tool-icon"
+                      />
+                    ))}
+                  </div>
+                </div>
+
                 <div className="works__buttons">
                   <a
                     href={work.figmaUrl}
+                    target="_blank"
+                    rel="noreferrer"
                     className="works__btn works__btn--outline"
                   >
                     View Figma
                   </a>
                   <a
                     href={work.siteUrl}
+                    target="_blank"
+                    rel="noreferrer"
                     className="works__btn works__btn--outline"
                   >
                     View Site
