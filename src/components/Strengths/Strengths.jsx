@@ -3,23 +3,58 @@ import "./Strengths.scss";
 
 const cards = [
   {
-    title: "Embrace Uncertainty",
+    title: (
+      <>
+        Embrace
+        <br />
+        Uncertainty
+      </>
+    ),
     subtitle: "막막한 순간일수록 먼저 움직입니다.",
-    desc: "완벽한 준비보다 첫 발을 내딛는 것이 더 많은 것을 가르쳐준다고 믿습니다.",
+    desc: (
+      <>
+        완벽한 준비보다 첫 발을 내딛는 것이
+        <br />더 많은 것을 가르쳐준다고 믿습니다.
+      </>
+    ),
     tags: ["#퍼스트펭귄", "#엄홍길", "#일단 해"],
     img: "/images/st_1.jpg",
   },
   {
-    title: "Good Energy",
+    title: (
+      <>
+        Good
+        <br />
+        Energy
+      </>
+    ),
     subtitle: "분위기는 성과만큼 중요하다고 생각합니다.",
-    desc: "밝은 에너지와 열린 소통으로 팀이 더욱 성장할 수 있도록 함께합니다.",
+    desc: (
+      <>
+        밝은 에너지와 열린 소통으로
+        <br />
+        팀이 더욱 성장할 수 있도록 함께합니다.
+      </>
+    ),
     tags: ["#노홍철", "#웃으면", "#복이 와요"],
     img: "/images/st_2.jpg",
   },
   {
-    title: "Always Iterating",
+    title: (
+      <>
+        Always
+        <br />
+        Iterating
+      </>
+    ),
     subtitle: "어제보다 나은 오늘이 될 수 있도록 노력합니다.",
-    desc: "피드백을 두려워하지 않고, 오히려 성장의 재료로 삼아 매일 조금씩 나아갑니다.",
+    desc: (
+      <>
+        피드백을 두려워하지 않고, 오히려 성장의 재료로 삼아
+        <br />
+        매일 조금씩 나아갑니다.
+      </>
+    ),
     tags: ["#성장", "#스폰지밥", "#오히려 좋아"],
     img: "/images/st_3.jpg",
   },
@@ -78,6 +113,21 @@ const photosBottom = [
 export default function Strengths() {
   const [activeIndex, setActiveIndex] = useState(0);
   const cardSectionRef = useRef(null);
+  const galleryRef = useRef(null);
+
+  useEffect(() => {
+    const photos = galleryRef.current.querySelectorAll('.strengths__photo');
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        photos.forEach((photo, i) => {
+          setTimeout(() => photo.classList.add('is-visible'), i * 120);
+        });
+        observer.disconnect();
+      }
+    }, { threshold: 0.2 });
+    observer.observe(galleryRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -137,7 +187,7 @@ export default function Strengths() {
         </div>
       </div>
 
-      <div className="strengths__gallery">
+      <div className="strengths__gallery" ref={galleryRef}>
         <div className="strengths__photos">
           {photosTop.map((photo, i) => (
             <div

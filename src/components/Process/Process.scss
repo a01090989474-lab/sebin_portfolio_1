@@ -1,26 +1,24 @@
 @use "../../styles/variables" as *;
 
-// ── 카드 크기 조절 (잘림 방지를 위해 소폭 조정) ────────────────────────
-$portrait-w: 520px;
-$portrait-h: 680px;
-$landscape-w: 780px;
-$landscape-h: 460px;
-// ────────────────────────────────────────────────
+$portrait-w: 560px;
+$portrait-h: 640px;
+$landscape-w: 820px;
+$landscape-h: 480px;
 
 .process {
   position: relative;
   z-index: 10;
-  background-color: $light; // 배경색 명시하여 검은 배경 차단
-  margin-top: -1px; // 섹션 간 미세한 틈새 제거
+  background-color: $light;
+  margin-top: -1px;
+  padding: 200px 0; // 섹션 간 간격 (sticky 바깥)
 
   &__sticky {
     position: sticky;
     top: 0;
     height: 100vh;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
-    padding: 200px 0; // 요청하신 상하 패딩 200px
+    padding: 60px 0 40px; // sticky 내부 최소 패딩
     box-sizing: border-box;
     background-color: $light;
   }
@@ -39,7 +37,7 @@ $landscape-h: 460px;
   &__track-container {
     flex: 1;
     display: flex;
-    align-items: center; // 중앙 정렬로 하단 잘림 방지
+    align-items: flex-start;
     padding-left: 80px;
   }
 
@@ -82,7 +80,6 @@ $landscape-h: 460px;
   &__img-wrap {
     flex: 1;
     overflow: hidden;
-    border-radius: 12px;
     background-color: #f5f5f5;
   }
 

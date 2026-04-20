@@ -30,8 +30,6 @@ export default function Banner() {
         { y: 200, duration: 3 },
         0,
       );
-
-      // [Phase 2] 센터 열 복귀 (시간 단축)
       tl.fromTo(
         ".banner__col-track--center",
         { y: -200 },
@@ -39,9 +37,7 @@ export default function Banner() {
         3.0,
       );
 
-      // [Phase 3] 알약 Fade Out 및 주변 열 제거 (지저분한 잔상 방지)
       tl.to(".banner__pill", { opacity: 0, duration: 0.8, stagger: 0.05 }, 2.5);
-      // 확대 시작 전, 센터 열을 제외한 모든 트랙을 투명하게 만들어 검은 배경 노출 방지
       tl.to(
         ".banner__col-track:not(.banner__col-track--center)",
         { opacity: 0, duration: 0.5 },

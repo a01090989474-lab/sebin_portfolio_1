@@ -27,9 +27,9 @@ export default function Hero() {
       .to(
         titleLineRefs.current,
         { opacity: 1, x: 0, duration: 0.5, stagger: 0.12 },
-        "+=0.1"
+        "+=0.1",
       )
-      .to(descRef.current, { opacity: 1, y: 0, duration: 0.6 }, "+=0.1");
+      .to(descRef.current, { opacity: 1, y: 0, duration: 0.1 });
 
     tweenRef.current = gsap.to(ringRef.current, {
       rotation: "+=360",
@@ -55,25 +55,34 @@ export default function Hero() {
         </p>
         <h1 className="hero__title">
           <span
-            ref={(el) => { titleLineRefs.current[0] = el; }}
+            ref={(el) => {
+              titleLineRefs.current[0] = el;
+            }}
             className="hero__title-line"
           >
             <span className="hero__title--point">Breaking conventions</span>
           </span>
           <span
-            ref={(el) => { titleLineRefs.current[1] = el; }}
+            ref={(el) => {
+              titleLineRefs.current[1] = el;
+            }}
             className="hero__title-line"
           >
             with a free and open perspective,
           </span>
           <span
-            ref={(el) => { titleLineRefs.current[2] = el; }}
+            ref={(el) => {
+              titleLineRefs.current[2] = el;
+            }}
             className="hero__title-line"
           >
-            <span className="hero__title--point">I design experiences</span> that
+            <span className="hero__title--point">I design experiences</span>{" "}
+            that
           </span>
           <span
-            ref={(el) => { titleLineRefs.current[3] = el; }}
+            ref={(el) => {
+              titleLineRefs.current[3] = el;
+            }}
             className="hero__title-line"
           >
             keep users coming back for more.

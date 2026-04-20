@@ -95,6 +95,7 @@ export default function Process() {
               <div
                 key={i}
                 className={`process__card process__card--${step.type}`}
+                style={(i === 1 || i === 3) ? { marginTop: '60px' } : undefined}
               >
                 <span className="process__num">{step.num}</span>
                 <div className="process__img-wrap">

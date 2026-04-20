@@ -17,10 +17,10 @@ export default function Gnb() {
       const y = window.scrollY;
       setScrolled(y > 40);
 
-      // Profile 섹션 이후 라이트 배경
-      const profileEl = document.getElementById("profile");
-      if (profileEl) {
-        const threshold = profileEl.offsetTop + profileEl.offsetHeight * 0.5;
+      // Works 섹션 이후 라이트 배경
+      const worksEl = document.getElementById("works");
+      if (worksEl) {
+        const threshold = worksEl.offsetTop;
         setIsDark(y < threshold);
       }
     };

@@ -12,8 +12,8 @@
     opacity: 0;
     transform: translateY(60px); // 아래에서 위로 올라오는 효과
     transition:
-      opacity 1s ease-out,
-      transform 1s ease-out;
+      opacity 0.5s ease-out,
+      transform 0.5s ease-out;
 
     &.is-visible {
       opacity: 1;
@@ -33,14 +33,14 @@
   &__list {
     display: flex;
     flex-direction: column;
-    gap: 200px;
+    gap: 150px;
   }
 
   &__item {
     // [추가] 리스트 아이템 순차적 등장 (0.4s, 0.7s...)
     @for $i from 1 through 10 {
       &:nth-child(#{$i}).is-visible {
-        transition-delay: #{0.1 + ($i * 0.4)}s;
+        transition-delay: #{0.1 + ($i * 0.1)}s;
       }
     }
 
