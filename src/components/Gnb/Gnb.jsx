@@ -17,9 +17,14 @@ export default function Gnb() {
     const handleScroll = () => {
       const y = window.scrollY;
       setScrolled(y > 40);
-      const worksEl = document.getElementById("works");
-      if (worksEl) {
-        setIsDark(y < worksEl.offsetTop);
+      const bannerWrapper = document.querySelector(".banner__wrapper");
+      if (bannerWrapper) {
+        const scrollable = bannerWrapper.offsetHeight - window.innerHeight;
+        const threshold = bannerWrapper.offsetTop + scrollable * 0.78;
+        setIsDark(y < threshold);
+      } else {
+        const worksEl = document.getElementById("works");
+        if (worksEl) setIsDark(y < worksEl.offsetTop);
       }
       if (menuOpen) setMenuOpen(false);
     };

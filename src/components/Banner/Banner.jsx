@@ -38,8 +38,8 @@ export default function Banner() {
         { scale: 100, duration: 2.5, ease: "power2.in" },
         4.5
       );
-      tl.to(".banner", { backgroundColor: "#fdfdfd", duration: 0.01 }, ">");
-      tl.to(".banner__photo-wrap", { opacity: 0, duration: 0.5 }, ">");
+      tl.to(".banner", { backgroundColor: "#fdfdfd", duration: 2.5, ease: "power2.in" }, 4.5);
+      tl.to(".banner__photo-wrap", { opacity: 0, duration: 0.5 }, 7.0);
       tl.to({}, { duration: 1 });
 
       ScrollTrigger.create({

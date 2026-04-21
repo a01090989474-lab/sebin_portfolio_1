@@ -14,10 +14,12 @@ export default function Profile() {
           }
         });
       },
-      { threshold: 0.15, rootMargin: "0px 0px -50px 0px" }
+      { threshold: 0.15, rootMargin: "0px 0px -50px 0px" },
     );
 
-    sectionRef.current.querySelectorAll(".fade-in").forEach((el) => observer.observe(el));
+    sectionRef.current
+      .querySelectorAll(".fade-in")
+      .forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
 
@@ -28,7 +30,8 @@ export default function Profile() {
 
         <div className="profile__intro fade-in">
           <p className="profile__quote">
-            "단순히 예쁜 결과물을 넘어 사용자의 경험, 본질을 탐구합니다"
+            "단순히 상상에 머물지 않고, 망설임 없는 시도로 재밌는 디자인을
+            구현합니다"
           </p>
           <p className="profile__sub">
             현재에 안주하지 않고 끊임없이 탐구하고, 다양한 시안을 연구하며

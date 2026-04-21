@@ -23,7 +23,7 @@ const works = [
   {
     title: "DIET OTT - ASCEND",
     description:
-      "ASCEND는 사용자 데이터를 분석해 AI 기반의 맞춤 식단과 운동 커리큘럼을 제공하는 차세대 다이어트 OTT입니다. 모든 영상에 상세한 운동 설명을 포함하고, 시청 중 관심 있는 운동 장비나 식품을 즉시 구매할 수 있는 커머스 UI를 통해 다이어트에 필요한 모든 것을 한번에 제공하는 ALL-IN-ONE 서비스입니다.",
+      "사용자 데이터 분석을 통한 개인화된 건강 관리와 콘텐츠 시청을 결합한 차세대 미디어 플랫폼입니다. 모든 운동 영상에 상세 가이드를 포함하여 정보 접근성을 높였으며, 콘텐츠 내에 삽입된 커머스 기능을 통해 정보 탐색부터 구매까지의 과정을 단축하는 데 초점을 맞추어 기획 및 디자인되었습니다.",
     period: "2026.02.20 - 03.25",
     part: "Plan 40%  Design 45%",
     tools: [
@@ -56,10 +56,12 @@ export default function Works() {
           }
         });
       },
-      { threshold: 0.2, rootMargin: "0px 0px -50px 0px" }
+      { threshold: 0.2, rootMargin: "0px 0px -50px 0px" },
     );
 
-    containerRef.current.querySelectorAll(".fade-in").forEach((el) => observer.observe(el));
+    containerRef.current
+      .querySelectorAll(".fade-in")
+      .forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
 

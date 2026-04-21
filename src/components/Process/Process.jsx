@@ -38,7 +38,8 @@ const steps = [
 
 export default function Process() {
   const sectionRef = useRef(null);
-  const triggerRef = useRef(null);
+  const wrapperRef = useRef(null);
+  const innerRef = useRef(null);
   const trackRef = useRef(null);
 
   useEffect(() => {
@@ -59,34 +60,86 @@ export default function Process() {
           },
         }
       );
-
-      if (!isMobile) {
-        const track = trackRef.current;
-        const moveX = track.scrollWidth - window.innerWidth + 160;
-
-        gsap.to(track, {
-          x: -moveX,
-          ease: "none",
-          scrollTrigger: {
-            trigger: triggerRef.current,
-            pin: true,
-            scrub: 1,
-            start: "top top",
-            end: () => `+=${moveX}`,
-            invalidateOnRefresh: true,
-          },
-        });
-      }
     }, sectionRef);
 
-    return () => ctx.revert();
+    if (isMobile) return () => ctx.revert();
+
+    const wrapper = wrapperRef.current;
+    const inner = innerRef.current;
+    const track = trackRef.current;
+    let moveX = 0;
+    let animFrame;
+
+    const calcMoveX = () => {
+      moveX = Math.max(0, track.scrollWidth - window.innerWidth + 160);
+      wrapper.style.height = `${window.innerHeight + moveX}px`;
+    };
+
+    const updateInner = () => {
+      const rect = wrapper.getBoundingClientRect();
+      if (rect.top > 0) {
+        inner.style.position = "relative";
+        inner.style.top = "";
+        inner.style.left = "";
+        inner.style.width = "";
+      } else if (rect.bottom <= window.innerHeight) {
+        inner.style.position = "absolute";
+        inner.style.bottom = "0";
+        inner.style.top = "auto";
+        inner.style.left = "0";
+        inner.style.width = "100%";
+      } else {
+        inner.style.position = "fixed";
+        inner.style.top = "0";
+        inner.style.left = "0";
+        inner.style.bottom = "";
+        inner.style.width = "100%";
+      }
+    };
+
+    const onScroll = () => {
+      const rect = wrapper.getBoundingClientRect();
+      updateInner();
+
+      if (rect.top <= 0 && rect.bottom > window.innerHeight) {
+        const progress = Math.min(1, Math.max(0, -rect.top / (wrapper.offsetHeight - window.innerHeight)));
+        gsap.set(track, { x: -progress * moveX });
+      } else if (rect.top > 0) {
+        gsap.set(track, { x: 0 });
+      } else {
+        gsap.set(track, { x: -moveX });
+      }
+    };
+
+    const onResize = () => {
+      calcMoveX();
+      onScroll();
+    };
+
+    calcMoveX();
+    onScroll();
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onResize);
+
+    return () => {
+      ctx.revert();
+      cancelAnimationFrame(animFrame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+      inner.style.position = "";
+      inner.style.top = "";
+      inner.style.left = "";
+      inner.style.width = "";
+      inner.style.bottom = "";
+    };
   }, []);
 
   return (
     <section className="process" ref={sectionRef}>
       <h2 className="process__title">PROCESS</h2>
-      <div className="process__sticky-wrapper" ref={triggerRef}>
-        <div className="process__content-inner">
+      <div className="process__sticky-wrapper" ref={wrapperRef}>
+        <div className="process__content-inner" ref={innerRef}>
           <div className="process__track-container">
             <div className="process__track" ref={trackRef}>
               {steps.map((step, i) => (

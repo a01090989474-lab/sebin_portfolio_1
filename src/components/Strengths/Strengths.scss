@@ -2,7 +2,7 @@
 
 .strengths {
   background-color: $light;
-  padding: 200px 0 0;
+  padding: 60px 0 0;
   position: relative;
   z-index: 5;
 
@@ -50,11 +50,11 @@
   &__card-container {
     position: relative;
     flex: 1;
-    height: 600px; // 카드들의 공통 높이
+    height: 680px;
   }
 
   &__card {
-    position: absolute; // 카드들을 한 위치에 겹침
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -63,7 +63,7 @@
     grid-template-columns: 1fr 1fr;
     align-items: center;
     gap: 60px;
-    visibility: hidden; // 처음엔 숨김 (첫 카드는 JS에서 보임 처리)
+    visibility: hidden;
     background-color: $light;
   }
 
@@ -96,15 +96,14 @@
   &__card-tags {
     display: flex;
     gap: 12px;
+
     span {
       font-size: 16px;
       color: rgba($dark, 0.5);
       border: 1px solid rgba($dark, 0.5);
       padding: 6px 14px;
       border-radius: 50px;
-      transition:
-        color 0.2s,
-        border-color 0.2s;
+      transition: color 0.2s, border-color 0.2s;
       cursor: default;
 
       &:hover {
@@ -118,15 +117,17 @@
 
   &__card-img {
     width: 100%;
-    height: 600px;
+    height: 680px;
     border-radius: 24px;
     overflow: hidden;
+
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
   }
+
   // ── Gallery ────────────────────────────────────
   &__gallery {
     display: flex;
@@ -202,7 +203,7 @@
 
   // ── Tablet ──────────────────────────────────────
   @media (max-width: $bp-tablet) {
-    padding: 120px 0 0;
+    padding: 40px 0 0;
 
     &__heading {
       font-size: 120px;
@@ -220,11 +221,26 @@
     &__gallery {
       padding: 120px 0 200px;
     }
+
+    &__photos {
+      gap: 8px;
+      padding: 0 20px;
+      overflow: hidden;
+    }
+
+    &__photo {
+      width: calc(var(--width, 220px) * 0.65);
+      transform: rotate(var(--rotate, 0deg)) translateY(calc(var(--offset, 0px) * 0.5)) !important;
+
+      &:hover {
+        transform: rotate(var(--rotate, 0deg)) translateY(calc(var(--offset, 0px) * 0.5)) scale(1.06) !important;
+      }
+    }
   }
 
   // ── Mobile ──────────────────────────────────────
   @media (max-width: $bp-mobile) {
-    padding: 80px 0 0;
+    padding: 40px 0 0;
 
     &__heading {
       font-size: 60px;

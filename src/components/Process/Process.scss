@@ -1,9 +1,9 @@
 @use "../../styles/variables" as *;
 
-$portrait-w: 500px;
-$portrait-h: 600px;
-$landscape-w: 760px;
-$landscape-h: 440px;
+$portrait-w: 550px;
+$portrait-h: 680px;
+$landscape-w: 840px;
+$landscape-h: 510px;
 
 .process {
   position: relative;
@@ -22,17 +22,17 @@ $landscape-h: 440px;
 
   &__sticky-wrapper {
     width: 100%;
-    height: 100vh;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
+    position: relative;
+    /* height is set dynamically by JS: innerHeight + moveX */
   }
 
   &__content-inner {
     width: 100%;
-    height: 100%;
+    height: 100vh;
+    overflow: hidden;
     display: flex;
     align-items: center;
+    /* position (fixed / absolute / relative) is managed by JS */
   }
 
   &__track-container {
@@ -129,11 +129,13 @@ $landscape-h: 440px;
     }
 
     &__sticky-wrapper {
-      height: auto;
-      overflow: visible;
+      height: auto !important;
     }
 
     &__content-inner {
+      position: relative !important;
+      height: auto;
+      overflow: visible;
       padding: 0 24px;
     }
 

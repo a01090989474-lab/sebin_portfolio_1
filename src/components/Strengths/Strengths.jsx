@@ -6,121 +6,38 @@ import "./Strengths.scss";
 gsap.registerPlugin(ScrollTrigger);
 
 const photosTop = [
-  {
-    src: "/images/like_1.jpg",
-    rotate: -20,
-    offset: -25,
-    offsetX: -280,
-    width: 300,
-  },
-  {
-    src: "/images/like_2.jpg",
-    rotate: -10,
-    offset: -55,
-    offsetX: -80,
-    width: 200,
-  },
-  {
-    src: "/images/like_3.jpg",
-    rotate: 10,
-    offset: -50,
-    offsetX: 80,
-    width: 350,
-  },
-  {
-    src: "/images/like_4.jpg",
-    rotate: 24,
-    offset: -10,
-    offsetX: 250,
-    width: 200,
-  },
+  { src: "/images/like_1.jpg", rotate: -20, offset: -25, offsetX: -280, width: 300 },
+  { src: "/images/like_2.jpg", rotate: -10, offset: -55, offsetX: -80, width: 200 },
+  { src: "/images/like_3.jpg", rotate: 10, offset: -50, offsetX: 80, width: 350 },
+  { src: "/images/like_4.jpg", rotate: 24, offset: -10, offsetX: 250, width: 200 },
 ];
 
 const photosBottom = [
-  {
-    src: "/images/like_5.jpg",
-    rotate: 7,
-    offset: 100,
-    offsetX: -250,
-    width: 200,
-  },
-  {
-    src: "/images/like_6.jpg",
-    rotate: 6,
-    offset: 130,
-    offsetX: -120,
-    width: 350,
-  },
-  {
-    src: "/images/like_7.jpg",
-    rotate: -4,
-    offset: 120,
-    offsetX: 0,
-    width: 300,
-  },
-  {
-    src: "/images/like_8.jpg",
-    rotate: -5,
-    offset: 90,
-    offsetX: 120,
-    width: 220,
-  },
+  { src: "/images/like_5.jpg", rotate: 7, offset: 100, offsetX: -250, width: 200 },
+  { src: "/images/like_6.jpg", rotate: 6, offset: 130, offsetX: -120, width: 350 },
+  { src: "/images/like_7.jpg", rotate: -4, offset: 120, offsetX: 0, width: 300 },
+  { src: "/images/like_8.jpg", rotate: -5, offset: 90, offsetX: 120, width: 220 },
 ];
 
 const cards = [
   {
-    title: (
-      <>
-        Embrace
-        <br />
-        Uncertainty
-      </>
-    ),
+    title: (<>Embrace<br />Uncertainty</>),
     subtitle: "막막한 순간일수록 먼저 움직입니다.",
-    desc: (
-      <>
-        완벽한 준비보다 첫 발을 내딛는 것이
-        <br />더 많은 것을 가르쳐준다고 믿습니다.
-      </>
-    ),
+    desc: (<>완벽한 준비보다 첫 발을 내딛는 것이<br />더 많은 것을 가르쳐준다고 믿습니다.</>),
     tags: ["#퍼스트펭귄", "#엄홍길", "#일단 해"],
     img: "/images/st_1.jpg",
   },
   {
-    title: (
-      <>
-        Good
-        <br />
-        Energy
-      </>
-    ),
+    title: (<>Good<br />Energy</>),
     subtitle: "분위기는 성과만큼 중요하다고 생각합니다.",
-    desc: (
-      <>
-        밝은 에너지와 열린 소통으로
-        <br />
-        팀이 더욱 성장할 수 있도록 함께합니다.
-      </>
-    ),
+    desc: (<>밝은 에너지와 열린 소통으로<br />팀이 더욱 성장할 수 있도록 함께합니다.</>),
     tags: ["#노홍철", "#웃으면", "#복이 와요"],
     img: "/images/st_2.jpg",
   },
   {
-    title: (
-      <>
-        Always
-        <br />
-        Iterating
-      </>
-    ),
+    title: (<>Always<br />Iterating</>),
     subtitle: "어제보다 나은 오늘이 될 수 있도록 노력합니다.",
-    desc: (
-      <>
-        피드백을 두려워하지 않고, 오히려 성장의 재료로 삼아
-        <br />
-        매일 조금씩 나아갑니다.
-      </>
-    ),
+    desc: (<>피드백을 두려워하지 않고, 오히려 성장의 재료로 삼아<br />매일 조금씩 나아갑니다.</>),
     tags: ["#성장", "#스펀지밥", "#오히려 좋아"],
     img: "/images/st_3.jpg",
   },
@@ -154,6 +71,8 @@ export default function Strengths() {
       if (!isMobile) {
         const tl = gsap.timeline();
 
+        tl.to({}, { duration: 1.5 });
+
         cardElements.forEach((card, i) => {
           if (i !== 0) {
             tl.fromTo(
@@ -174,7 +93,7 @@ export default function Strengths() {
         ScrollTrigger.create({
           trigger: ".strengths__card-section",
           start: "top top",
-          end: "+=2500",
+          end: "+=3200",
           pin: true,
           scrub: 1,
           animation: tl,
@@ -185,35 +104,48 @@ export default function Strengths() {
           },
         });
       }
-
-      gsap.fromTo(
-        ".strengths__gallery-text span",
-        { opacity: 0, y: 12 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.35,
-          stagger: 0.1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: ".strengths__gallery-text",
-            start: "top 88%",
-          },
-        }
-      );
-
-      const photos = gsap.utils.toArray(".strengths__photo");
-      photos.forEach((photo) => {
-        ScrollTrigger.create({
-          trigger: photo,
-          start: "top 90%",
-          onEnter: () => photo.classList.add("is-visible"),
-          once: true,
-        });
-      });
     }, sectionRef);
 
-    return () => ctx.revert();
+    const photoEls = sectionRef.current.querySelectorAll(".strengths__photo");
+    const photoObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            photoObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    photoEls.forEach((el) => photoObserver.observe(el));
+
+    const galleryTextEl = sectionRef.current.querySelector(".strengths__gallery-text");
+    let textAnimated = false;
+    const textObserver = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !textAnimated) {
+          textAnimated = true;
+          gsap.fromTo(
+            entries[0].target.querySelectorAll("span"),
+            { opacity: 0, y: 12 },
+            { opacity: 1, y: 0, duration: 0.35, stagger: 0.1, ease: "power2.out" }
+          );
+          textObserver.unobserve(entries[0].target);
+        }
+      },
+      { threshold: 0.3 }
+    );
+    if (galleryTextEl) {
+      gsap.set(galleryTextEl.querySelectorAll("span"), { opacity: 0, y: 12 });
+      textObserver.observe(galleryTextEl);
+    }
+
+    return () => {
+      ctx.revert();
+      photoObserver.disconnect();
+      textObserver.disconnect();
+    };
   }, []);
 
   return (
