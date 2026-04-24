@@ -29,16 +29,15 @@
   }
 
   &__title {
-    font-size: 80px;
-    font-weight: 600;
     line-height: 1;
-    color: $light;
+    color: rgba($light, 0.9);
     margin-bottom: 32px;
     letter-spacing: -0.025em;
     position: relative;
     z-index: 30;
 
     &--point {
+      font-size: 90px;
       color: $blue;
       font-weight: 600;
       white-space: nowrap;
@@ -46,14 +45,15 @@
   }
 
   &__title-line {
+    font-size: 70px;
+    font-weight: 500;
     display: block;
-    opacity: 0;
     transform: translateX(-40px);
   }
 
   &__desc {
     font-size: 21px;
-    color: $light;
+    color: rgba($light, 0.8);
     margin-bottom: 24px;
     opacity: 0;
     transform: translateY(10px);
