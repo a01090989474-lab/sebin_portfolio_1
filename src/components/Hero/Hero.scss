@@ -45,11 +45,15 @@
   }
 
   &__title-line {
-    font-size: 70px;
+    font-size: 60px;
     font-weight: 500;
     display: block;
     opacity: 0;
     transform: translateX(-40px);
+
+    &.hero__title-spacer {
+      height: 0.6em;
+    }
   }
 
   &__desc {

@@ -58,31 +58,45 @@ export default function Hero() {
             ref={(el) => (titleLineRefs.current[0] = el)}
             className="hero__title-line"
           >
-            <span className="hero__title--point">Breaking conventions</span>
+            Hello
           </span>
           <span
             ref={(el) => (titleLineRefs.current[1] = el)}
-            className="hero__title-line"
-          >
-            with a free and open perspective,
-          </span>
+            className="hero__title-line hero__title-spacer"
+          />
           <span
             ref={(el) => (titleLineRefs.current[2] = el)}
             className="hero__title-line"
           >
-            <span className="hero__title--point">I design experiences</span>{" "}
-            that
+            I design experiences that users will
           </span>
           <span
             ref={(el) => (titleLineRefs.current[3] = el)}
             className="hero__title-line"
           >
-            keep users coming back for more.
+            keep coming back to, using a
+          </span>
+          <span
+            ref={(el) => (titleLineRefs.current[4] = el)}
+            className="hero__title-line"
+          >
+            <span className="hero__title--point">free-spirited</span> perspective
+          </span>
+          <span
+            ref={(el) => (titleLineRefs.current[5] = el)}
+            className="hero__title-line hero__title-spacer"
+          />
+          <span
+            ref={(el) => (titleLineRefs.current[6] = el)}
+            className="hero__title-line"
+          >
+            I'm <span className="hero__title--point">KIM SE BIN</span>
           </span>
         </h1>
         <p ref={descRef} className="hero__desc">
-          자유롭고 열린 시각으로 관습을 깨뜨리며, 사용자가 계속 찾게 되는 경험을
-          설계합니다.
+          자유롭고 열린 시각으로 사용자가 계속 찾게 되는 경험을 설계합니다.
+          <br />
+          김세빈입니다.
         </p>
 
         <div className="hero__images">
