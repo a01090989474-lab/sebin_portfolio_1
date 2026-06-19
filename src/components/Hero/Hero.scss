@@ -31,7 +31,7 @@
   &__title {
     line-height: 1;
     color: rgba($light, 0.9);
-    margin-bottom: 32px;
+    margin-bottom: 40px;
     letter-spacing: -0.025em;
     position: relative;
     z-index: 30;
@@ -45,8 +45,8 @@
   }
 
   &__title-line {
-    font-size: 60px;
-    font-weight: 500;
+    font-size: 75px;
+    font-weight: 700;
     display: block;
     opacity: 0;
     transform: translateX(-40px);
